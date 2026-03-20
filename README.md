@@ -1,6 +1,6 @@
 # Prepwise
 
-A full-stack mock interview preparation platform with structured 20-question sessions, performance analytics, and downloadable reports.
+A full-stack mock interview preparation platform with structured question sessions, performance analytics, and downloadable reports.
 
 ## Tech Stack
 - **Frontend:** Next.js, Tailwind CSS
