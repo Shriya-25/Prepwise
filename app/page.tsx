@@ -180,7 +180,8 @@ export default function Home() {
             >
               Simulate real interviews and get structured feedback
             </p>
-            <button
+            <Link
+              href="/setup"
               className={`rounded-xl bg-[var(--accent-lime)] px-10 py-4 text-lg font-extrabold text-[#102000] shadow-lg shadow-lime-400/30 transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_0_32px_rgba(163,255,18,0.45)] active:scale-[0.98] ${
                 mounted
                   ? "scale-100 opacity-100 delay-500"
@@ -188,7 +189,7 @@ export default function Home() {
               }`}
             >
               Begin Interview
-            </button>
+            </Link>
           </div>
         </section>
 

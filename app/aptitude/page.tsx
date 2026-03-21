@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Brain, Play, Info, MonitorPlay, MoreHorizontal, Sparkles, UserCircle2, Zap } from "lucide-react";
 
@@ -92,10 +93,11 @@ export default function AptitudePage() {
                 className="group relative overflow-hidden rounded-xl bg-[var(--surface-lowest)] shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
               >
                 <div className="relative aspect-video overflow-hidden bg-[var(--surface-container)]">
-                  <img
+                  <Image
                     src={`https://i.ytimg.com/vi/${resource.videoId}/hqdefault.jpg`}
                     alt={resource.title}
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-[var(--primary)]/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
