@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import {
   BarChart3,
   Brain,
@@ -38,7 +39,7 @@ function useCountUp(target: number, start: boolean, duration = 1100) {
 }
 
 export default function Home() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = true;
 
   const steps = [
     {
@@ -74,10 +75,6 @@ export default function Home() {
   const communicationCount = useCountUp(9, metricsInView, 2600);
   const technicalCount = useCountUp(7, metricsInView, 2800);
   const finalScoreCount = useCountUp(92, metricsInView, 3000);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const revealItems = Array.from(
@@ -134,17 +131,20 @@ export default function Home() {
               >
                 Analytics
               </a>
-              <a
-                href="#"
+              <Link
+                href="/aptitude"
                 className="nav-link text-sm font-semibold text-[var(--on-surface-variant)] transition-colors duration-300 hover:text-[var(--primary)]"
               >
                 Aptitude
-              </a>
+              </Link>
             </div>
           </div>
-          <button className="rounded-lg border border-[var(--outline-variant)] bg-white px-5 py-2 text-sm font-bold text-[var(--primary)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--primary-container)] hover:bg-[var(--primary-container)] hover:text-white hover:shadow-md active:translate-y-0 active:scale-[0.98]">
+          <Link
+            href="/login"
+            className="rounded-lg border border-[var(--outline-variant)] bg-white px-5 py-2 text-sm font-bold text-[var(--primary)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--primary-container)] hover:bg-[var(--primary-container)] hover:text-white hover:shadow-md active:translate-y-0 active:scale-[0.98]"
+          >
             Login
-          </button>
+          </Link>
         </nav>
       </header>
 
