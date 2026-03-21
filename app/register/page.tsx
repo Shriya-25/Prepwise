@@ -2,6 +2,15 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FirebaseError } from "firebase/app";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  signOut,
+  signInWithPopup,
+  updateProfile,
+} from "firebase/auth";
 import {
   ArrowRight,
   Eye,
@@ -11,6 +20,7 @@ import {
   Sparkles,
   UserRound,
 } from "lucide-react";
+import { auth, googleProvider } from "@/lib/firebase";
 
 type RegisterFormErrors = {
   fullName?: string;
@@ -22,6 +32,7 @@ type RegisterFormErrors = {
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [fullName, setFullName] = useState("");
@@ -29,6 +40,47 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<RegisterFormErrors>({});
+  const [authError, setAuthError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const setSessionCookies = (
+    userEmail: string,
+    displayName?: string | null,
+    joinedAt?: string
+  ) => {
+    const maxAge = 60 * 60 * 24 * 30;
+    document.cookie = `prepwise_session=1; path=/; max-age=${maxAge}; samesite=lax`;
+    document.cookie = `prepwise_user_email=${encodeURIComponent(
+      userEmail
+    )}; path=/; max-age=${maxAge}; samesite=lax`;
+    document.cookie = `prepwise_user_name=${encodeURIComponent(
+      displayName || fullName || "Prepwise User"
+    )}; path=/; max-age=${maxAge}; samesite=lax`;
+    if (joinedAt) {
+      document.cookie = `prepwise_joined_at=${encodeURIComponent(
+        joinedAt
+      )}; path=/; max-age=${maxAge}; samesite=lax`;
+    }
+  };
+
+  const mapAuthError = (error: unknown) => {
+    if (!(error instanceof FirebaseError)) {
+      return "Registration failed. Please try again.";
+    }
+
+    switch (error.code) {
+      case "auth/email-already-in-use":
+        return "This email is already registered.";
+      case "auth/invalid-email":
+        return "Please enter a valid email address.";
+      case "auth/weak-password":
+        return "Password should be stronger. Use at least 8 characters.";
+      case "auth/popup-closed-by-user":
+        return "Google sign-up was cancelled.";
+      default:
+        return "Unable to create account right now. Please try again.";
+    }
+  };
 
   const validateForm = () => {
     const nextErrors: RegisterFormErrors = {};
@@ -63,13 +115,59 @@ export default function RegisterPage() {
     return Object.keys(nextErrors).length === 0;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validateForm()) {
       return;
     }
 
-    setErrors({});
+    setAuthError("");
+    setIsSubmitting(true);
+
+    try {
+      const credentials = await createUserWithEmailAndPassword(
+        auth,
+        email.trim(),
+        password
+      );
+
+      await updateProfile(credentials.user, {
+        displayName: fullName.trim(),
+      });
+
+      await sendEmailVerification(credentials.user);
+      await signOut(auth);
+
+      setErrors({});
+      router.push(
+        `/verify-email?email=${encodeURIComponent(
+          credentials.user.email || email.trim()
+        )}`
+      );
+    } catch (error) {
+      setAuthError(mapAuthError(error));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    setAuthError("");
+    setIsSubmitting(true);
+
+    try {
+      const credentials = await signInWithPopup(auth, googleProvider);
+      setSessionCookies(
+        credentials.user.email || "",
+        credentials.user.displayName,
+        credentials.user.metadata.creationTime
+      );
+      router.push("/profile");
+    } catch (error) {
+      setAuthError(mapAuthError(error));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const clearError = (field: keyof RegisterFormErrors) => {
@@ -292,11 +390,16 @@ export default function RegisterPage() {
                 ) : null}
               </div>
 
+              {authError ? (
+                <p className="text-sm font-medium text-[var(--error)]">{authError}</p>
+              ) : null}
+
               <button
                 type="submit"
-                className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[var(--primary)] to-[var(--primary-container)] px-4 py-3 font-bold text-white transition-all duration-200 hover:opacity-95 hover:shadow-lg active:scale-[0.98]"
+                disabled={isSubmitting}
+                className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[var(--primary)] to-[var(--primary-container)] px-4 py-3 font-bold text-white transition-all duration-200 hover:opacity-95 hover:shadow-lg active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
               >
-                Create Account
+                {isSubmitting ? "Creating Account..." : "Create Account"}
                 <ArrowRight className="h-4 w-4" />
               </button>
             </form>
@@ -311,6 +414,8 @@ export default function RegisterPage() {
 
             <button
               type="button"
+              onClick={handleGoogleSignUp}
+              disabled={isSubmitting}
               className="flex w-full items-center justify-center gap-3 rounded-xl border border-[var(--outline-variant)]/35 bg-[var(--surface-low)] px-4 py-2.5 font-semibold text-[var(--on-surface)] transition-all hover:bg-[var(--surface-high)] active:scale-[0.99]"
             >
               <span className="grid h-5 w-5 place-items-center rounded-full bg-white text-xs font-bold text-[#1a73e8] shadow-sm">

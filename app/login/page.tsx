@@ -2,7 +2,15 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FirebaseError } from "firebase/app";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { ArrowRight, Eye, EyeOff, Lock, Mail, Sparkles } from "lucide-react";
+import { auth, googleProvider } from "@/lib/firebase";
 
 type LoginFormErrors = {
   email?: string;
@@ -12,10 +20,52 @@ type LoginFormErrors = {
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function LoginPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<LoginFormErrors>({});
+  const [authError, setAuthError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const setSessionCookies = (
+    userEmail: string,
+    displayName?: string | null,
+    joinedAt?: string
+  ) => {
+    const maxAge = 60 * 60 * 24 * 30;
+    document.cookie = `prepwise_session=1; path=/; max-age=${maxAge}; samesite=lax`;
+    document.cookie = `prepwise_user_email=${encodeURIComponent(
+      userEmail
+    )}; path=/; max-age=${maxAge}; samesite=lax`;
+    document.cookie = `prepwise_user_name=${encodeURIComponent(
+      displayName || "Prepwise User"
+    )}; path=/; max-age=${maxAge}; samesite=lax`;
+    if (joinedAt) {
+      document.cookie = `prepwise_joined_at=${encodeURIComponent(
+        joinedAt
+      )}; path=/; max-age=${maxAge}; samesite=lax`;
+    }
+  };
+
+  const mapAuthError = (error: unknown) => {
+    if (!(error instanceof FirebaseError)) {
+      return "Login failed. Please try again.";
+    }
+
+    switch (error.code) {
+      case "auth/invalid-credential":
+      case "auth/wrong-password":
+      case "auth/user-not-found":
+        return "Invalid email or password.";
+      case "auth/too-many-requests":
+        return "Too many attempts. Please wait and try again.";
+      case "auth/popup-closed-by-user":
+        return "Google sign-in was cancelled.";
+      default:
+        return "Unable to login right now. Please try again.";
+    }
+  };
 
   const validateForm = () => {
     const nextErrors: LoginFormErrors = {};
@@ -35,13 +85,65 @@ export default function LoginPage() {
     return Object.keys(nextErrors).length === 0;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validateForm()) {
       return;
     }
 
-    setErrors({});
+    setAuthError("");
+    setIsSubmitting(true);
+
+    try {
+      const credentials = await signInWithEmailAndPassword(
+        auth,
+        email.trim(),
+        password
+      );
+
+      const isPasswordUser = credentials.user.providerData.some(
+        (provider) => provider.providerId === "password"
+      );
+
+      if (isPasswordUser && !credentials.user.emailVerified) {
+        await signOut(auth);
+        setAuthError(
+          "Please verify your email before logging in. Check your inbox."
+        );
+        return;
+      }
+
+      setSessionCookies(
+        credentials.user.email || email.trim(),
+        credentials.user.displayName,
+        credentials.user.metadata.creationTime
+      );
+      setErrors({});
+      router.push("/profile");
+    } catch (error) {
+      setAuthError(mapAuthError(error));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setAuthError("");
+    setIsSubmitting(true);
+
+    try {
+      const credentials = await signInWithPopup(auth, googleProvider);
+      setSessionCookies(
+        credentials.user.email || "",
+        credentials.user.displayName,
+        credentials.user.metadata.creationTime
+      );
+      router.push("/profile");
+    } catch (error) {
+      setAuthError(mapAuthError(error));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const clearError = (field: keyof LoginFormErrors) => {
@@ -191,11 +293,16 @@ export default function LoginPage() {
                 ) : null}
               </div>
 
+              {authError ? (
+                <p className="text-sm font-medium text-[var(--error)]">{authError}</p>
+              ) : null}
+
               <button
                 type="submit"
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[var(--primary)] to-[var(--primary-container)] px-4 py-3 font-bold text-white transition-all duration-200 hover:opacity-95 hover:shadow-lg active:scale-[0.98]"
+                disabled={isSubmitting}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[var(--primary)] to-[var(--primary-container)] px-4 py-3 font-bold text-white transition-all duration-200 hover:opacity-95 hover:shadow-lg active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
               >
-                Login
+                {isSubmitting ? "Signing In..." : "Login"}
                 <ArrowRight className="h-4 w-4" />
               </button>
             </form>
@@ -210,6 +317,8 @@ export default function LoginPage() {
 
             <button
               type="button"
+              onClick={handleGoogleLogin}
+              disabled={isSubmitting}
               className="flex w-full items-center justify-center gap-3 rounded-xl border border-[var(--outline-variant)]/35 bg-[var(--surface-low)] px-4 py-2.5 font-semibold text-[var(--on-surface)] transition-all hover:bg-[var(--surface-high)] active:scale-[0.99]"
             >
               <span className="grid h-5 w-5 place-items-center rounded-full bg-white text-xs font-bold text-[#1a73e8] shadow-sm">

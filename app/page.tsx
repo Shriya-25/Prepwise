@@ -125,12 +125,12 @@ export default function Home() {
               Prepwise
             </span>
             <div className="hidden items-center gap-7 md:flex">
-              <a
-                href="#"
+              <Link
+                href="/analytics"
                 className="nav-link text-sm font-semibold text-[var(--on-surface-variant)] transition-colors duration-300 hover:text-[var(--primary)]"
               >
                 Analytics
-              </a>
+              </Link>
               <Link
                 href="/aptitude"
                 className="nav-link text-sm font-semibold text-[var(--on-surface-variant)] transition-colors duration-300 hover:text-[var(--primary)]"

@@ -50,6 +50,19 @@ h3,
   font-family: var(--font-headline), sans-serif;
 }
 
+/* Keep only custom eye toggle icons in auth forms. */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .nav-link {
   position: relative;
 }

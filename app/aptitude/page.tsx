@@ -42,12 +42,12 @@ export default function AptitudePage() {
               Prepwise
             </Link>
             <div className="hidden items-center gap-6 md:flex">
-              <a
-                href="#"
+              <Link
+                href="/analytics"
                 className="text-sm font-bold tracking-tight text-[var(--on-surface-variant)] transition-colors duration-200 hover:text-[var(--primary)]"
               >
                 Analytics
-              </a>
+              </Link>
               <Link
                 href="/aptitude"
                 className="border-b-2 border-[var(--accent-lime)] pb-1 text-sm font-bold tracking-tight text-[var(--primary)]"
@@ -58,9 +58,9 @@ export default function AptitudePage() {
           </div>
 
           <Link
-            href="/login"
+            href="/profile"
             className="rounded-full p-2 text-[var(--primary)] transition-colors hover:bg-[var(--surface-low)]"
-            aria-label="Go to login"
+            aria-label="Go to profile"
           >
             <UserCircle2 className="h-7 w-7" />
           </Link>
