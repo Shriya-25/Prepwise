@@ -187,30 +187,30 @@ export default function AptitudePage() {
           <div className="flex gap-6">
             <a
               href="#"
-              className="text-xs text-slate-600 opacity-80 transition-opacity hover:underline hover:opacity-100"
+              className="text-xs text-[var(--on-surface-variant)] opacity-80 transition-opacity hover:underline hover:opacity-100"
             >
               Privacy
             </a>
             <a
               href="#"
-              className="text-xs text-slate-600 opacity-80 transition-opacity hover:underline hover:opacity-100"
+              className="text-xs text-[var(--on-surface-variant)] opacity-80 transition-opacity hover:underline hover:opacity-100"
             >
               Terms
             </a>
             <a
               href="#"
-              className="text-xs text-slate-600 opacity-80 transition-opacity hover:underline hover:opacity-100"
+              className="text-xs text-[var(--on-surface-variant)] opacity-80 transition-opacity hover:underline hover:opacity-100"
             >
               Support
             </a>
             <a
               href="#"
-              className="text-xs text-slate-600 opacity-80 transition-opacity hover:underline hover:opacity-100"
+              className="text-xs text-[var(--on-surface-variant)] opacity-80 transition-opacity hover:underline hover:opacity-100"
             >
               Contact
             </a>
           </div>
-          <p className="text-xs text-slate-600">© 2026 Prepwise AI</p>
+          <p className="text-xs text-[var(--on-surface-variant)]">© 2026 Prepwise AI</p>
         </div>
       </footer>
     </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
   Info,
@@ -134,6 +134,20 @@ function formatTimer(totalSeconds: number) {
 }
 
 export default function InterviewPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-dvh items-center justify-center bg-[var(--surface)] text-[var(--primary)]">
+          Loading interview...
+        </div>
+      }
+    >
+      <InterviewPageContent />
+    </Suspense>
+  );
+}
+
+function InterviewPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const role = searchParams.get("role") || "Interview";
