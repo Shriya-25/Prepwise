@@ -70,17 +70,6 @@ export default function ProcessingPage() {
           </div>
         </section>
       </main>
-
-      <footer className="flex w-full flex-col items-center justify-between gap-4 bg-[var(--surface)] px-8 py-6 md:flex-row">
-        <div className="text-xs font-medium uppercase tracking-widest text-[var(--outline)]/80">
-          © 2024 Prepwise AI. All rights reserved.
-        </div>
-        <div className="flex gap-6">
-          <a className="text-xs font-medium uppercase tracking-widest text-[var(--outline)]/80 transition-colors hover:text-[var(--accent-lime)]" href="#">Privacy Policy</a>
-          <a className="text-xs font-medium uppercase tracking-widest text-[var(--outline)]/80 transition-colors hover:text-[var(--accent-lime)]" href="#">Terms of Service</a>
-          <a className="text-xs font-medium uppercase tracking-widest text-[var(--outline)]/80 transition-colors hover:text-[var(--accent-lime)]" href="#">Support</a>
-        </div>
-      </footer>
     </div>
   );
 }

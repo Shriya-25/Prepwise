@@ -158,21 +158,6 @@ export default function ReportPage() {
           </Link>
         </div>
       </main>
-
-      <footer className="mt-auto border-t border-stone-200/50 bg-[var(--surface-container)] py-10">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-4 px-8 md:flex-row">
-          <div className="flex flex-col items-center gap-2 md:items-start">
-            <span className="text-xl font-bold tracking-tight text-[var(--primary)]">Prepwise</span>
-            <p className="text-sm text-stone-600">© 2024 Prepwise. The Stoic Mentor for Career Growth.</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-stone-600">
-            <a className="opacity-80 transition-all hover:opacity-100" href="#">Privacy Policy</a>
-            <a className="opacity-80 transition-all hover:opacity-100" href="#">Terms of Service</a>
-            <a className="opacity-80 transition-all hover:opacity-100" href="#">Support</a>
-            <a className="opacity-80 transition-all hover:opacity-100" href="#">Feedback</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -67,33 +67,6 @@ export default async function ProfilePage() {
           />
         </div>
       </main>
-
-      <footer className="mt-auto bg-[var(--surface-container)]">
-        <div className="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-between gap-6 px-8 py-10 md:flex-row">
-          <div className="text-center md:text-left">
-            <span className="mr-2 text-lg font-extrabold text-[var(--primary)]">
-              Prepwise
-            </span>
-            <span className="text-sm font-medium text-[var(--outline)]">
-              | © 2026 Prepwise AI | Practice. Improve. Succeed.
-            </span>
-          </div>
-          <div className="flex gap-8">
-            <a className="text-sm font-medium text-[var(--outline)] underline decoration-[var(--accent-lime)] underline-offset-4 transition-colors hover:text-[var(--primary)]" href="#">
-              Privacy
-            </a>
-            <a className="text-sm font-medium text-[var(--outline)] underline decoration-[var(--accent-lime)] underline-offset-4 transition-colors hover:text-[var(--primary)]" href="#">
-              Terms
-            </a>
-            <a className="text-sm font-medium text-[var(--outline)] underline decoration-[var(--accent-lime)] underline-offset-4 transition-colors hover:text-[var(--primary)]" href="#">
-              Support
-            </a>
-            <a className="text-sm font-medium text-[var(--outline)] underline decoration-[var(--accent-lime)] underline-offset-4 transition-colors hover:text-[var(--primary)]" href="#">
-              Contact
-            </a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

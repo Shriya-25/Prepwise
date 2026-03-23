@@ -216,33 +216,6 @@ export default function SetupPage() {
           </section>
         </div>
       </main>
-
-      <footer className="mt-auto bg-[var(--surface-container)]">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-6 px-8 py-10 md:flex-row">
-          <div className="flex flex-col gap-1">
-            <span className="text-lg font-black text-[var(--primary)]">Prepwise</span>
-            <div className="flex flex-col gap-1 text-sm tracking-wide text-[var(--on-surface-variant)] md:flex-row md:items-center md:gap-4">
-              <span>© 2026 Prepwise AI</span>
-              <span className="hidden opacity-30 md:block">|</span>
-              <span>Practice. Improve. Succeed.</span>
-            </div>
-          </div>
-          <div className="flex gap-6 md:gap-8">
-            <a className="text-sm tracking-wide text-[var(--on-surface-variant)] opacity-80 transition-colors hover:text-[var(--accent-lime)] hover:opacity-100" href="#">
-              Privacy
-            </a>
-            <a className="text-sm tracking-wide text-[var(--on-surface-variant)] opacity-80 transition-colors hover:text-[var(--accent-lime)] hover:opacity-100" href="#">
-              Terms
-            </a>
-            <a className="text-sm tracking-wide text-[var(--on-surface-variant)] opacity-80 transition-colors hover:text-[var(--accent-lime)] hover:opacity-100" href="#">
-              Support
-            </a>
-            <a className="text-sm tracking-wide text-[var(--on-surface-variant)] opacity-80 transition-colors hover:text-[var(--accent-lime)] hover:opacity-100" href="#">
-              Contact
-            </a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

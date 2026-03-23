@@ -163,22 +163,6 @@ export default function FeedbackPage() {
           </Link>
         </div>
       </main>
-
-      <footer className="mt-auto bg-[var(--surface-container)]">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-6 px-12 py-10 md:flex-row">
-          <div className="flex flex-col items-center md:items-start">
-            <span className="mb-1 text-xl font-bold text-[var(--primary)]">Prepwise</span>
-            <p className="text-sm text-stone-600">© 2026 Prepwise. All rights reserved.</p>
-            <p className="mt-2 text-xs italic text-stone-500">Practice. Improve. Succeed.</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-8">
-            <a className="text-sm text-stone-500 transition-all duration-200 hover:underline" href="#">Privacy</a>
-            <a className="text-sm text-stone-500 transition-all duration-200 hover:underline" href="#">Terms</a>
-            <a className="text-sm text-stone-500 transition-all duration-200 hover:underline" href="#">Support</a>
-            <a className="text-sm text-stone-500 transition-all duration-200 hover:underline" href="#">Contact</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

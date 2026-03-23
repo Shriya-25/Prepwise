@@ -180,39 +180,6 @@ export default function AptitudePage() {
           <div className="absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-[var(--primary-container)]/35" />
         </section>
       </main>
-
-      <footer className="mt-24 bg-[var(--surface-low)]">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-4 px-6 py-12 md:flex-row md:px-8">
-          <span className="text-lg font-bold text-[var(--primary)]">Prepwise</span>
-          <div className="flex gap-6">
-            <a
-              href="#"
-              className="text-xs text-[var(--on-surface-variant)] opacity-80 transition-opacity hover:underline hover:opacity-100"
-            >
-              Privacy
-            </a>
-            <a
-              href="#"
-              className="text-xs text-[var(--on-surface-variant)] opacity-80 transition-opacity hover:underline hover:opacity-100"
-            >
-              Terms
-            </a>
-            <a
-              href="#"
-              className="text-xs text-[var(--on-surface-variant)] opacity-80 transition-opacity hover:underline hover:opacity-100"
-            >
-              Support
-            </a>
-            <a
-              href="#"
-              className="text-xs text-[var(--on-surface-variant)] opacity-80 transition-opacity hover:underline hover:opacity-100"
-            >
-              Contact
-            </a>
-          </div>
-          <p className="text-xs text-[var(--on-surface-variant)]">© 2026 Prepwise AI</p>
-        </div>
-      </footer>
     </div>
   );
 }
