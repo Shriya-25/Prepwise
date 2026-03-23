@@ -4,7 +4,6 @@ import {
   ArrowRight,
   CheckCircle2,
   Lightbulb,
-  UserCircle2,
 } from "lucide-react";
 
 const strengths = [
@@ -28,33 +27,6 @@ const actions = [
 export default function FeedbackPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[var(--background)] text-[var(--on-surface)]">
-      <header className="sticky top-0 z-50 border-b border-[var(--outline-variant)]/45 bg-[var(--surface)]">
-        <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-4">
-          <div className="flex items-center gap-12">
-            <span className="text-2xl font-black tracking-tight text-[var(--primary)]">
-              Prepwise
-            </span>
-            <div className="hidden items-center gap-8 md:flex">
-              <Link
-                href="/analytics"
-                className="text-base font-medium tracking-tight text-stone-500 transition-colors duration-200 hover:text-[var(--primary)]"
-              >
-                Analytics
-              </Link>
-              <Link
-                href="/aptitude"
-                className="text-base font-medium tracking-tight text-stone-500 transition-colors duration-200 hover:text-[var(--primary)]"
-              >
-                Aptitude
-              </Link>
-            </div>
-          </div>
-          <Link href="/profile" className="rounded-full p-2 transition-colors hover:bg-[var(--surface-container)]" aria-label="Profile">
-            <UserCircle2 className="h-6 w-6 text-[var(--primary)]" />
-          </Link>
-        </nav>
-      </header>
-
       <main className="mx-auto w-full max-w-7xl flex-1 px-6 py-12">
         <section className="mb-14">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">

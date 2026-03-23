@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import {
@@ -10,7 +9,6 @@ import {
   ChevronDown,
   CloudUpload,
   Info,
-  UserCircle2,
 } from "lucide-react";
 
 type FormState = {
@@ -69,38 +67,6 @@ export default function SetupPage() {
   return (
     <div className="relative flex min-h-screen flex-col overflow-hidden bg-[var(--background)] text-[var(--on-surface)]">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(55rem_28rem_at_90%_8%,rgba(163,255,18,0.16),transparent_60%),radial-gradient(40rem_24rem_at_10%_75%,rgba(15,61,46,0.08),transparent_65%)]" />
-      <header className="w-full border-b border-[var(--outline-variant)]/45 bg-[var(--surface)]">
-        <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 md:px-8">
-          <div className="flex items-center gap-10">
-            <Link href="/" className="text-2xl font-extrabold tracking-tight text-[var(--primary)]">
-              Prepwise
-            </Link>
-            <div className="hidden items-center gap-8 md:flex">
-              <Link
-                href="/analytics"
-                className="font-bold tracking-tight text-[var(--on-surface-variant)] transition-colors duration-200 hover:text-[var(--primary)]"
-              >
-                Analytics
-              </Link>
-              <Link
-                href="/aptitude"
-                className="font-bold tracking-tight text-[var(--on-surface-variant)] transition-colors duration-200 hover:text-[var(--primary)]"
-              >
-                Aptitude
-              </Link>
-            </div>
-          </div>
-
-          <Link
-            href="/profile"
-            className="rounded-full p-2 text-[var(--primary)] transition-colors duration-200 hover:bg-[var(--surface-low)]"
-            aria-label="Open profile"
-          >
-            <UserCircle2 className="h-6 w-6" />
-          </Link>
-        </nav>
-      </header>
-
       <main className="flex flex-1 items-center justify-center px-6 py-12 md:py-20">
         <div className="w-full max-w-xl">
           <section className="rounded-xl border border-[var(--outline-variant)]/40 bg-[var(--surface-lowest)] p-8 shadow-sm md:p-12">

@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Lock, Sparkles, UserCircle2 } from "lucide-react";
+import { Lock, Sparkles } from "lucide-react";
 
 export default function ProcessingPage() {
   const router = useRouter();
@@ -18,26 +17,6 @@ export default function ProcessingPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-[var(--surface)] text-[var(--on-surface)]">
-      <header className="fixed top-0 z-50 flex h-16 w-full items-center justify-between bg-[var(--surface)] px-8">
-        <div className="flex items-center gap-12">
-          <Link href="/" className="text-2xl font-black tracking-tight text-[var(--primary)]">
-            Prepwise
-          </Link>
-          <nav className="hidden items-center gap-8 md:flex">
-            <Link href="/analytics" className="text-sm font-bold text-[var(--on-surface-variant)] transition-colors hover:text-[var(--primary)]">
-              Analytics
-            </Link>
-            <Link href="/aptitude" className="text-sm font-bold text-[var(--on-surface-variant)] transition-colors hover:text-[var(--primary)]">
-              Aptitude
-            </Link>
-          </nav>
-        </div>
-
-        <Link href="/profile" className="rounded-full p-2 transition-colors hover:bg-[var(--surface-container)]" aria-label="Profile">
-          <UserCircle2 className="h-6 w-6 text-[var(--primary)]" />
-        </Link>
-      </header>
-
       <main className="relative flex flex-1 items-center justify-center overflow-hidden px-6">
         <div className="pointer-events-none absolute inset-0 opacity-40">
           <div className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--accent-lime)]/10 blur-[120px]" />

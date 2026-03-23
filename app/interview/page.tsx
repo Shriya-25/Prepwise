@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import {
@@ -9,7 +8,6 @@ import {
   Mic,
   SkipForward,
   Timer,
-  UserCircle2,
 } from "lucide-react";
 
 type InterviewQuestion = {
@@ -200,35 +198,7 @@ function InterviewPageContent() {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-[var(--surface)] text-[var(--on-surface)]">
-      <header className="fixed top-0 z-50 w-full border-b border-[var(--outline-variant)]/45 bg-[var(--surface)]/95 backdrop-blur-md">
-        <nav className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 md:px-8">
-          <div className="flex items-center gap-10">
-            <Link href="/" className="text-2xl font-black tracking-tight text-[var(--primary)]">
-              Prepwise
-            </Link>
-            <div className="hidden items-center gap-8 md:flex">
-              <Link
-                href="/analytics"
-                className="font-bold tracking-tight text-[var(--on-surface-variant)] transition-colors hover:text-[var(--primary)]"
-              >
-                Analytics
-              </Link>
-              <Link
-                href="/aptitude"
-                className="font-bold tracking-tight text-[var(--on-surface-variant)] transition-colors hover:text-[var(--primary)]"
-              >
-                Aptitude
-              </Link>
-            </div>
-          </div>
-
-          <Link href="/profile" className="text-[var(--primary)]" aria-label="Open profile">
-            <UserCircle2 className="h-8 w-8" />
-          </Link>
-        </nav>
-      </header>
-
-      <main className="mx-auto flex h-[calc(100dvh-5rem)] w-full max-w-5xl flex-1 flex-col gap-4 overflow-hidden px-6 pb-4 pt-24">
+      <main className="mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col gap-4 overflow-hidden px-6 pb-4 pt-6 md:pt-8">
         <header className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
           <div className="flex flex-col gap-3">
             <span className="inline-flex w-fit items-center rounded-lg bg-[var(--primary-container)] px-3 py-1 text-xs font-bold uppercase tracking-widest text-white">

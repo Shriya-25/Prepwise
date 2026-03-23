@@ -5,7 +5,6 @@ import {
   ChevronDown,
   Download,
   Timer,
-  UserCircle2,
 } from "lucide-react";
 
 const transcriptCards = [
@@ -36,28 +35,6 @@ const transcriptCards = [
 export default function ReportPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[var(--surface)] text-[var(--on-surface)]">
-      <header className="sticky top-0 z-50 border-b border-[var(--outline-variant)]/45 bg-[var(--surface)]/95 backdrop-blur-md">
-        <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-8">
-          <div className="flex items-center gap-12">
-            <Link href="/" className="text-2xl font-black tracking-tighter text-[var(--primary)]">
-              Prepwise
-            </Link>
-            <div className="hidden items-center gap-8 md:flex">
-              <Link href="/analytics" className="text-sm font-medium text-stone-600 transition-colors hover:text-[var(--primary)]">
-                Analytics
-              </Link>
-              <Link href="/aptitude" className="text-sm font-medium text-stone-600 transition-colors hover:text-[var(--primary)]">
-                Aptitude
-              </Link>
-            </div>
-          </div>
-
-          <Link href="/profile" className="rounded-full p-2 transition-colors hover:bg-[var(--surface-container)]" aria-label="Profile">
-            <UserCircle2 className="h-6 w-6 text-[var(--primary)]" />
-          </Link>
-        </nav>
-      </header>
-
       <main className="mx-auto w-full max-w-7xl flex-1 px-8 py-12">
         <header className="mb-14 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div className="space-y-2">

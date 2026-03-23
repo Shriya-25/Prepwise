@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Brain, Play, Info, MonitorPlay, MoreHorizontal, Sparkles, UserCircle2, Zap } from "lucide-react";
+import { Brain, Play, Info, MonitorPlay, MoreHorizontal, Sparkles, Zap } from "lucide-react";
 
 const resources = [
   {
@@ -33,41 +33,6 @@ const resources = [
 export default function AptitudePage() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--on-surface)]">
-      <header className="sticky top-0 z-50 border-b border-[var(--outline-variant)]/45 bg-[var(--surface)]/95 backdrop-blur-md">
-        <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 md:px-8">
-          <div className="flex items-center gap-8">
-            <Link
-              href="/"
-              className="text-2xl font-black tracking-tight text-[var(--primary)]"
-            >
-              Prepwise
-            </Link>
-            <div className="hidden items-center gap-6 md:flex">
-              <Link
-                href="/analytics"
-                className="text-sm font-bold tracking-tight text-[var(--on-surface-variant)] transition-colors duration-200 hover:text-[var(--primary)]"
-              >
-                Analytics
-              </Link>
-              <Link
-                href="/aptitude"
-                className="border-b-2 border-[var(--accent-lime)] pb-1 text-sm font-bold tracking-tight text-[var(--primary)]"
-              >
-                Aptitude
-              </Link>
-            </div>
-          </div>
-
-          <Link
-            href="/profile"
-            className="rounded-full p-2 text-[var(--primary)] transition-colors hover:bg-[var(--surface-low)]"
-            aria-label="Go to profile"
-          >
-            <UserCircle2 className="h-7 w-7" />
-          </Link>
-        </nav>
-      </header>
-
       <main className="mx-auto w-full max-w-7xl px-6 py-16 md:px-8">
         <section className="mb-20 text-center">
           <h1 className="mb-6 text-5xl font-extrabold tracking-tight text-[var(--primary)] md:text-6xl">
