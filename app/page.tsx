@@ -291,9 +291,12 @@ export default function Home() {
                 Start with one focused session, review your report, and build
                 interview confidence with measurable progress.
               </p>
-              <button className="rounded-xl bg-[var(--accent-lime)] px-10 py-4 text-lg font-extrabold text-[#102000] shadow-lg shadow-lime-400/40 transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_0_32px_rgba(163,255,18,0.45)] active:scale-[0.98]">
+              <Link
+                href="/setup"
+                className="inline-flex rounded-xl bg-[var(--accent-lime)] px-10 py-4 text-lg font-extrabold text-[#102000] shadow-lg shadow-lime-400/40 transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_0_32px_rgba(163,255,18,0.45)] active:scale-[0.98]"
+              >
                 Begin Interview Now
-              </button>
+              </Link>
             </div>
             <div className="absolute -right-16 -top-16 h-52 w-52 rounded-full bg-[var(--accent-lime)]/20 blur-3xl" />
             <div className="absolute -bottom-20 -left-14 h-56 w-56 rounded-full bg-[#1e4f3c] blur-3xl" />

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function SiteFooter() {
   return (
     <footer className="border-t border-[var(--outline-variant)]/40 bg-[#edeeed]">
@@ -12,18 +14,18 @@ export default function SiteFooter() {
           </p>
         </div>
         <div className="flex items-center gap-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--outline)]">
-          <a href="#" className="nav-link transition-colors hover:text-[var(--secondary)]">
+          <Link href="/privacy" className="nav-link transition-colors hover:text-[var(--secondary)]">
             Privacy
-          </a>
-          <a href="#" className="nav-link transition-colors hover:text-[var(--secondary)]">
+          </Link>
+          <Link href="/terms" className="nav-link transition-colors hover:text-[var(--secondary)]">
             Terms
-          </a>
-          <a href="#" className="nav-link transition-colors hover:text-[var(--secondary)]">
+          </Link>
+          <Link href="/support" className="nav-link transition-colors hover:text-[var(--secondary)]">
             Support
-          </a>
-          <a href="#" className="nav-link transition-colors hover:text-[var(--secondary)]">
+          </Link>
+          <Link href="/contact" className="nav-link transition-colors hover:text-[var(--secondary)]">
             Contact
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
