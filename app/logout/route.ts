@@ -24,5 +24,12 @@ export async function GET(request: Request) {
     path: "/",
   });
 
+  response.cookies.set({
+    name: "prepwise_joined_at",
+    value: "",
+    maxAge: 0,
+    path: "/",
+  });
+
   return response;
 }

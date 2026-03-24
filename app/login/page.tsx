@@ -34,17 +34,20 @@ export default function LoginPage() {
     joinedAt?: string
   ) => {
     const maxAge = 60 * 60 * 24 * 30;
-    document.cookie = `prepwise_session=1; path=/; max-age=${maxAge}; samesite=lax`;
+    const secureAttr =
+      window.location.protocol === "https:" ? "; secure" : "";
+
+    document.cookie = `prepwise_session=1; path=/; max-age=${maxAge}; samesite=lax${secureAttr}`;
     document.cookie = `prepwise_user_email=${encodeURIComponent(
       userEmail
-    )}; path=/; max-age=${maxAge}; samesite=lax`;
+    )}; path=/; max-age=${maxAge}; samesite=lax${secureAttr}`;
     document.cookie = `prepwise_user_name=${encodeURIComponent(
       displayName || "Prepwise User"
-    )}; path=/; max-age=${maxAge}; samesite=lax`;
+    )}; path=/; max-age=${maxAge}; samesite=lax${secureAttr}`;
     if (joinedAt) {
       document.cookie = `prepwise_joined_at=${encodeURIComponent(
         joinedAt
-      )}; path=/; max-age=${maxAge}; samesite=lax`;
+      )}; path=/; max-age=${maxAge}; samesite=lax${secureAttr}`;
     }
   };
 
