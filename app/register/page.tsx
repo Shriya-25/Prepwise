@@ -49,20 +49,17 @@ export default function RegisterPage() {
     joinedAt?: string
   ) => {
     const maxAge = 60 * 60 * 24 * 30;
-    const secureAttr =
-      window.location.protocol === "https:" ? "; secure" : "";
-
-    document.cookie = `prepwise_session=1; path=/; max-age=${maxAge}; samesite=lax${secureAttr}`;
+    document.cookie = `prepwise_session=1; path=/; max-age=${maxAge}; samesite=lax`;
     document.cookie = `prepwise_user_email=${encodeURIComponent(
       userEmail
-    )}; path=/; max-age=${maxAge}; samesite=lax${secureAttr}`;
+    )}; path=/; max-age=${maxAge}; samesite=lax`;
     document.cookie = `prepwise_user_name=${encodeURIComponent(
       displayName || fullName || "Prepwise User"
-    )}; path=/; max-age=${maxAge}; samesite=lax${secureAttr}`;
+    )}; path=/; max-age=${maxAge}; samesite=lax`;
     if (joinedAt) {
       document.cookie = `prepwise_joined_at=${encodeURIComponent(
         joinedAt
-      )}; path=/; max-age=${maxAge}; samesite=lax${secureAttr}`;
+      )}; path=/; max-age=${maxAge}; samesite=lax`;
     }
   };
 
@@ -165,7 +162,7 @@ export default function RegisterPage() {
         credentials.user.displayName,
         credentials.user.metadata.creationTime
       );
-      router.push("/profile");
+      router.push("/");
     } catch (error) {
       setAuthError(mapAuthError(error));
     } finally {

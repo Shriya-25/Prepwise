@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserCircle2 } from "lucide-react";
@@ -8,10 +9,34 @@ type SiteNavbarProps = {
   isLoggedIn: boolean;
 };
 
-const HIDDEN_ROUTES = new Set(["/interview", "/login", "/logout"]);
+const HIDDEN_ROUTES = new Set([
+  "/interview",
+  "/login",
+  "/register",
+  "/verify-email",
+  "/logout",
+]);
 
 export default function SiteNavbar({ isLoggedIn }: SiteNavbarProps) {
   const pathname = usePathname();
+  const [resolvedLoggedIn, setResolvedLoggedIn] = useState(isLoggedIn);
+
+  useEffect(() => {
+    const syncFromCookie = () => {
+      const hasSessionCookie = document.cookie
+        .split("; ")
+        .some((cookie) => cookie.startsWith("prepwise_session="));
+
+      setResolvedLoggedIn(hasSessionCookie || isLoggedIn);
+    };
+
+    syncFromCookie();
+    window.addEventListener("focus", syncFromCookie);
+
+    return () => {
+      window.removeEventListener("focus", syncFromCookie);
+    };
+  }, [isLoggedIn, pathname]);
 
   if (HIDDEN_ROUTES.has(pathname)) {
     return null;
@@ -51,7 +76,7 @@ export default function SiteNavbar({ isLoggedIn }: SiteNavbarProps) {
           </div>
         </div>
 
-        {isLoggedIn ? (
+        {resolvedLoggedIn ? (
           <Link
             href="/profile"
             className="rounded-full p-2 text-[var(--primary)] transition-colors hover:bg-[var(--surface-low)]"

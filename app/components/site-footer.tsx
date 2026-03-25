@@ -1,6 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const HIDDEN_ROUTES = new Set(["/login", "/register", "/verify-email"]);
 
 export default function SiteFooter() {
+  const pathname = usePathname();
+
+  if (HIDDEN_ROUTES.has(pathname)) {
+    return null;
+  }
+
   return (
     <footer className="border-t border-[var(--outline-variant)]/40 bg-[#edeeed]">
       <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-8 px-6 py-10 md:flex-row md:items-center md:px-8">
