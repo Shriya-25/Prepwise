@@ -38,6 +38,8 @@ export default function SetupPage() {
     company: "",
     resumeName: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const resolvedRole = useMemo(() => {
     if (formState.role === "Custom") {
@@ -47,21 +49,52 @@ export default function SetupPage() {
     return formState.role;
   }, [formState.customRole, formState.role]);
 
-  const canStart = Boolean(resolvedRole);
+  const canStart = Boolean(resolvedRole) && !isLoading;
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!canStart) {
       return;
     }
 
-    const params = new URLSearchParams();
-    params.set("role", resolvedRole);
-    if (formState.company.trim()) {
-      params.set("company", formState.company.trim());
-    }
+    // Clear previous error
+    setError(null);
+    setIsLoading(true);
 
-    router.push(`/interview?${params.toString()}`);
+    try {
+      // Call the API to generate questions
+      const response = await fetch("/api/generate-questions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          role: resolvedRole,
+          company: formState.company.trim() || undefined,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to generate questions");
+      }
+
+      const result = await response.json();
+
+      // Store questions in localStorage
+      localStorage.setItem("interview_questions", JSON.stringify(result.data.questions));
+      localStorage.setItem("interview_role", result.data.role);
+      if (result.data.company) {
+        localStorage.setItem("interview_company", result.data.company);
+      }
+
+      // Redirect to interview page
+      router.push("/interview");
+    } catch (err) {
+      console.error("Error generating questions:", err);
+      setError(err instanceof Error ? err.message : "An unexpected error occurred");
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -168,14 +201,29 @@ export default function SetupPage() {
                 </p>
               </div>
 
+              {error && (
+                <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4">
+                  <p className="text-sm text-red-500 font-medium">{error}</p>
+                </div>
+              )}
+
               <div className="pt-4">
                 <button
                   type="submit"
                   disabled={!canStart}
                   className="group flex w-full items-center justify-center gap-3 rounded-xl bg-[var(--accent-lime)] px-8 py-5 font-bold text-[#123220] shadow-[0_10px_28px_-14px_rgba(163,255,18,0.75)] transition-all hover:bg-[#94ec11] hover:shadow-[0_14px_30px_-14px_rgba(163,255,18,0.9)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-65"
                 >
-                  <span>Begin Interview</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  {isLoading ? (
+                    <>
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#123220] border-t-transparent" />
+                      <span>Generating Questions...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Begin Interview</span>
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </>
+                  )}
                 </button>
               </div>
             </form>
