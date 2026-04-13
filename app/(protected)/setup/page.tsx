@@ -91,7 +91,6 @@ export default function SetupPage() {
       // Redirect to interview page
       router.push("/interview");
     } catch (err) {
-      console.error("Error generating questions:", err);
       setError(err instanceof Error ? err.message : "An unexpected error occurred");
       setIsLoading(false);
     }

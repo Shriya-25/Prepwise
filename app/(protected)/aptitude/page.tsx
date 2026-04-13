@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Brain, Play, Info, MonitorPlay, MoreHorizontal, Sparkles, Zap } from "lucide-react";
 
 const resources = [

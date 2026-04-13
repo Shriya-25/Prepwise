@@ -119,8 +119,7 @@ export async function POST(request: NextRequest) {
         generatedAt: new Date().toISOString(),
       },
     });
-  } catch (error) {
-    console.error("Error generating questions:", error);
+  } catch {
     return NextResponse.json(
       { error: "Failed to generate questions. Please try again." },
       { status: 500 }

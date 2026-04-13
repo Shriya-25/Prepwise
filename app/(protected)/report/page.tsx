@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   CalendarDays,
-  ChevronDown,
   Download,
   Timer,
 } from "lucide-react";
@@ -116,7 +115,7 @@ export default function ReportPage() {
               <div className="px-8 pb-8 pt-0">
                 <details className="group">
                   <summary className="flex cursor-pointer list-none items-center gap-2 border-t border-[var(--surface-low)] py-4 text-sm font-bold text-[var(--primary)]">
-                    <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+                    <span className="inline-flex h-4 w-4 items-center justify-center transition-transform group-open:rotate-180">▾</span>
                     View Ideal STAR Response
                   </summary>
                   <div className="mt-4 rounded-xl bg-[var(--primary)] p-6 text-white">
