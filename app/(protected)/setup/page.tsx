@@ -53,6 +53,11 @@ export default function SetupPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!resolvedRole.trim()) {
+      setError("Please select or enter a role before starting.");
+      return;
+    }
+
     if (!canStart) {
       return;
     }
