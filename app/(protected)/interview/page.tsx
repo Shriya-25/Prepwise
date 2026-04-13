@@ -153,7 +153,7 @@ function InterviewPageContent() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(TIMER_SECONDS_PER_QUESTION);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [userResponses, setUserResponses] = useState<Record<number, string>>({});
   const [listening, setListening] = useState(false);
 
   const currentQuestion = QUESTIONS[currentIndex];
@@ -190,7 +190,7 @@ function InterviewPageContent() {
   };
 
   const onAnswerChange = (value: string) => {
-    setAnswers((prev) => ({
+    setUserResponses((prev) => ({
       ...prev,
       [currentQuestion.id]: value,
     }));
@@ -251,7 +251,7 @@ function InterviewPageContent() {
           <div className="grid min-h-0 grid-cols-1 items-start gap-4 md:grid-cols-12">
             <div className="relative md:col-span-10">
               <textarea
-                value={answers[currentQuestion.id] || ""}
+                value={userResponses[currentQuestion.id] || ""}
                 onChange={(event) => onAnswerChange(event.target.value)}
                 className="h-[140px] w-full rounded-xl border-none bg-[var(--surface-high)] p-5 text-sm placeholder:text-[var(--outline)]/60 focus:ring-2 focus:ring-[var(--secondary)] md:h-[160px]"
                 placeholder="Type your response here or use voice input..."
