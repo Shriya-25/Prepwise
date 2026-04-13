@@ -133,8 +133,8 @@ export default function ReportPage() {
           )}
         </section>
 
-        <div className="mt-12 flex justify-center">
-          <Link href="/analytics" className="group flex items-center gap-3 rounded-xl border border-[var(--outline-variant)] bg-[var(--surface-lowest)] px-6 py-3 text-sm font-bold text-[var(--primary)] transition-colors hover:bg-[var(--surface-low)]">
+        <div className="mt-14 flex justify-center px-2 md:px-0">
+          <Link href="/analytics" className="group flex min-w-[220px] items-center justify-center gap-3 rounded-xl border border-[var(--outline-variant)] bg-[var(--surface-lowest)] px-6 py-3 text-sm font-bold text-[var(--primary)] transition-colors hover:bg-[var(--surface-low)]">
             Back To Analytics
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
