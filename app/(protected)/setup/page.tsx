@@ -96,7 +96,11 @@ export default function SetupPage() {
       // Redirect to interview page
       router.push("/interview");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unexpected error occurred");
+      if (err instanceof TypeError) {
+        setError("Network error: unable to reach the server. Check your internet connection and try again.");
+      } else {
+        setError(err instanceof Error ? err.message : "An unexpected error occurred");
+      }
       setIsLoading(false);
     }
   };
