@@ -60,6 +60,7 @@ export default function SetupPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Guard against accidental submits when required role data is missing.
     if (!resolvedRole.trim()) {
       setError("Please select or enter a role before starting.");
       return;
@@ -74,7 +75,7 @@ export default function SetupPage() {
     setIsLoading(true);
 
     try {
-      // Call the API to generate questions
+      // Create a role/company-aware interview question set from the API.
       const response = await fetch("/api/generate-questions", {
         method: "POST",
         headers: {
@@ -93,7 +94,7 @@ export default function SetupPage() {
 
       const result = await response.json();
 
-      // Store questions in localStorage
+      // Persist setup context so downstream pages can render without refetching.
       localStorage.setItem("interview_questions", JSON.stringify(result.data.questions));
       localStorage.setItem("interview_role", result.data.role);
       if (result.data.company) {
