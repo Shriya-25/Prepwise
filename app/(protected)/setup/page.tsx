@@ -41,6 +41,13 @@ export default function SetupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const updateFormField = <K extends keyof FormState>(field: K, value: FormState[K]) => {
+    setFormState((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   const resolvedRole = useMemo(() => {
     if (formState.role === "Custom") {
       return formState.customRole.trim();
@@ -129,9 +136,7 @@ export default function SetupPage() {
                   </div>
                   <select
                     value={formState.role}
-                    onChange={(event) =>
-                      setFormState((prev) => ({ ...prev, role: event.target.value }))
-                    }
+                    onChange={(event) => updateFormField("role", event.target.value)}
                     className="w-full appearance-none rounded-md border-none bg-[var(--surface-high)] py-4 pl-12 pr-10 text-[var(--on-surface)] transition-all focus:ring-2 focus:ring-[var(--secondary)]"
                     required
                   >
@@ -152,9 +157,7 @@ export default function SetupPage() {
                 {formState.role === "Custom" ? (
                   <input
                     value={formState.customRole}
-                    onChange={(event) =>
-                      setFormState((prev) => ({ ...prev, customRole: event.target.value }))
-                    }
+                    onChange={(event) => updateFormField("customRole", event.target.value)}
                     placeholder="Enter your role"
                     className="w-full rounded-md border-none bg-[var(--surface-high)] px-4 py-3 text-[var(--on-surface)] focus:ring-2 focus:ring-[var(--secondary)]"
                     required
@@ -170,9 +173,7 @@ export default function SetupPage() {
                   </div>
                   <input
                     value={formState.company}
-                    onChange={(event) =>
-                      setFormState((prev) => ({ ...prev, company: event.target.value }))
-                    }
+                    onChange={(event) => updateFormField("company", event.target.value)}
                     placeholder="e.g. Google, Stripe, or Startup"
                     className="w-full rounded-md border-none bg-[var(--surface-high)] py-4 pl-12 pr-4 text-[var(--on-surface)] transition-all focus:ring-2 focus:ring-[var(--secondary)]"
                     type="text"
@@ -196,10 +197,7 @@ export default function SetupPage() {
                     accept=".pdf,.doc,.docx"
                     onChange={(event) => {
                       const file = event.target.files?.[0];
-                      setFormState((prev) => ({
-                        ...prev,
-                        resumeName: file ? file.name : "",
-                      }));
+                      updateFormField("resumeName", file ? file.name : "");
                     }}
                   />
                 </label>
