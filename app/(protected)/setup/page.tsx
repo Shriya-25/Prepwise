@@ -210,7 +210,7 @@ export default function SetupPage() {
                 <button
                   type="submit"
                   disabled={!canStart}
-                  className="group flex w-full items-center justify-center gap-3 rounded-xl bg-[var(--accent-lime)] px-8 py-5 font-bold text-[#123220] shadow-[0_10px_28px_-14px_rgba(163,255,18,0.75)] transition-all hover:bg-[#94ec11] hover:shadow-[0_14px_30px_-14px_rgba(163,255,18,0.9)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-65"
+                  className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-[var(--accent-lime)] px-9 py-5 font-bold text-[#123220] shadow-[0_10px_28px_-14px_rgba(163,255,18,0.75)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#94ec11] hover:shadow-[0_18px_34px_-16px_rgba(163,255,18,0.95)] active:translate-y-0 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-65"
                 >
                   {isLoading ? (
                     <>
