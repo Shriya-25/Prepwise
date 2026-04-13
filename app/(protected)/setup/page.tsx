@@ -224,6 +224,11 @@ export default function SetupPage() {
                     </>
                   )}
                 </button>
+                {isLoading ? (
+                  <p className="mt-3 text-center text-xs font-medium text-[var(--outline)]">
+                    Loading interview setup...
+                  </p>
+                ) : null}
               </div>
             </form>
           </section>
