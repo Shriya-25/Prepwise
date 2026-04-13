@@ -82,8 +82,13 @@ export default function ReportPage() {
             Interview Transcript and Analysis
           </h2>
 
-          {transcriptCards.map((card, index) => (
-            <article key={card.question} className="overflow-hidden rounded-xl border border-[var(--outline-variant)]/10 bg-[var(--surface-lowest)] shadow-[0px_32px_32px_-12px_rgba(25,28,28,0.04)]">
+          {transcriptCards.length === 0 ? (
+            <div className="rounded-xl border border-dashed border-[var(--outline-variant)] bg-[var(--surface-low)] p-8 text-center">
+              <p className="text-sm font-semibold text-[var(--on-surface-variant)]">No results yet</p>
+            </div>
+          ) : (
+            transcriptCards.map((card, index) => (
+              <article key={card.question} className="overflow-hidden rounded-xl border border-[var(--outline-variant)]/10 bg-[var(--surface-lowest)] shadow-[0px_32px_32px_-12px_rgba(25,28,28,0.04)]">
               <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--surface-low)] p-8">
                 <div className="max-w-3xl space-y-2">
                   <span className="text-xs font-bold uppercase tracking-widest text-[var(--secondary)]">
@@ -123,8 +128,9 @@ export default function ReportPage() {
                   </div>
                 </details>
               </div>
-            </article>
-          ))}
+              </article>
+            ))
+          )}
         </section>
 
         <div className="mt-12 flex justify-center">
