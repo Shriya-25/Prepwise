@@ -10,6 +10,7 @@ import {
   CloudUpload,
   Info,
 } from "lucide-react";
+import { roleOptions } from "@/utils/interview-setup";
 
 type FormState = {
   role: string;
@@ -17,18 +18,6 @@ type FormState = {
   company: string;
   resumeName: string;
 };
-
-const roleOptions = [
-  "Software Engineer",
-  "Frontend Developer",
-  "Backend Developer",
-  "Full Stack Developer",
-  "Data Analyst",
-  "Product Manager",
-  "UI/UX Designer",
-  "DevOps Engineer",
-  "Custom",
-];
 
 export default function SetupPage() {
   const router = useRouter();
