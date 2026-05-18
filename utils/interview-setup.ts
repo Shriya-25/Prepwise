@@ -7,5 +7,8 @@ export const roleOptions = [
   "Product Manager",
   "UI/UX Designer",
   "DevOps Engineer",
+  "HR Manager",
+  "Recruiter",
+  "HR Generalist",
   "Custom",
 ];
