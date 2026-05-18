@@ -73,6 +73,12 @@ export default function SiteNavbar({ isLoggedIn }: SiteNavbarProps) {
             >
               Aptitude
             </Link>
+            <Link
+              href="/hr"
+              className={`nav-link text-sm font-semibold transition-colors duration-300 hover:text-[var(--primary)]`}
+            >
+              HR
+            </Link>
           </div>
         </div>
 
