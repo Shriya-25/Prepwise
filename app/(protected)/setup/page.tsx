@@ -2,22 +2,24 @@
 
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import {
-  ArrowRight,
+import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
+import { roleOptions } from "../../../utils/interview-setup";
   BriefcaseBusiness,
   Building2,
   ChevronDown,
   CloudUpload,
   Info,
 } from "lucide-react";
-import { roleOptions } from "@/utils/interview-setup";
 
 type FormState = {
-  role: string;
-  customRole: string;
-  company: string;
-  resumeName: string;
-};
+// Removed local roleOptions definition, now using imported roleOptions
+  "Data Analyst",
+  "Product Manager",
+  "UI/UX Designer",
+  "DevOps Engineer",
+  "Custom",
+];
 
 export default function SetupPage() {
   const router = useRouter();
@@ -29,13 +31,6 @@ export default function SetupPage() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const updateFormField = <K extends keyof FormState>(field: K, value: FormState[K]) => {
-    setFormState((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
 
   const resolvedRole = useMemo(() => {
     if (formState.role === "Custom") {
@@ -49,12 +44,6 @@ export default function SetupPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Guard against accidental submits when required role data is missing.
-    if (!resolvedRole.trim()) {
-      setError("Please select or enter a role before starting.");
-      return;
-    }
-
     if (!canStart) {
       return;
     }
@@ -64,7 +53,7 @@ export default function SetupPage() {
     setIsLoading(true);
 
     try {
-      // Create a role/company-aware interview question set from the API.
+      // Call the API to generate questions
       const response = await fetch("/api/generate-questions", {
         method: "POST",
         headers: {
@@ -83,9 +72,11 @@ export default function SetupPage() {
 
       const result = await response.json();
 
-      // Persist setup context so downstream pages can render without refetching.
+      // Store questions and session metadata in localStorage
       localStorage.setItem("interview_questions", JSON.stringify(result.data.questions));
       localStorage.setItem("interview_role", result.data.role);
+      localStorage.setItem("role", result.data.role);
+      localStorage.setItem("company", result.data.company || "");
       if (result.data.company) {
         localStorage.setItem("interview_company", result.data.company);
       }
@@ -93,11 +84,8 @@ export default function SetupPage() {
       // Redirect to interview page
       router.push("/interview");
     } catch (err) {
-      if (err instanceof TypeError) {
-        setError("Network error: unable to reach the server. Check your internet connection and try again.");
-      } else {
-        setError(err instanceof Error ? err.message : "An unexpected error occurred");
-      }
+      console.error("Error generating questions:", err);
+      setError(err instanceof Error ? err.message : "An unexpected error occurred");
       setIsLoading(false);
     }
   };
@@ -126,7 +114,9 @@ export default function SetupPage() {
                   </div>
                   <select
                     value={formState.role}
-                    onChange={(event) => updateFormField("role", event.target.value)}
+                    onChange={(event) =>
+                      setFormState((prev) => ({ ...prev, role: event.target.value }))
+                    }
                     className="w-full appearance-none rounded-md border-none bg-[var(--surface-high)] py-4 pl-12 pr-10 text-[var(--on-surface)] transition-all focus:ring-2 focus:ring-[var(--secondary)]"
                     required
                   >
@@ -147,7 +137,9 @@ export default function SetupPage() {
                 {formState.role === "Custom" ? (
                   <input
                     value={formState.customRole}
-                    onChange={(event) => updateFormField("customRole", event.target.value)}
+                    onChange={(event) =>
+                      setFormState((prev) => ({ ...prev, customRole: event.target.value }))
+                    }
                     placeholder="Enter your role"
                     className="w-full rounded-md border-none bg-[var(--surface-high)] px-4 py-3 text-[var(--on-surface)] focus:ring-2 focus:ring-[var(--secondary)]"
                     required
@@ -163,7 +155,9 @@ export default function SetupPage() {
                   </div>
                   <input
                     value={formState.company}
-                    onChange={(event) => updateFormField("company", event.target.value)}
+                    onChange={(event) =>
+                      setFormState((prev) => ({ ...prev, company: event.target.value }))
+                    }
                     placeholder="e.g. Google, Stripe, or Startup"
                     className="w-full rounded-md border-none bg-[var(--surface-high)] py-4 pl-12 pr-4 text-[var(--on-surface)] transition-all focus:ring-2 focus:ring-[var(--secondary)]"
                     type="text"
@@ -187,7 +181,10 @@ export default function SetupPage() {
                     accept=".pdf,.doc,.docx"
                     onChange={(event) => {
                       const file = event.target.files?.[0];
-                      updateFormField("resumeName", file ? file.name : "");
+                      setFormState((prev) => ({
+                        ...prev,
+                        resumeName: file ? file.name : "",
+                      }));
                     }}
                   />
                 </label>
@@ -207,7 +204,7 @@ export default function SetupPage() {
                 <button
                   type="submit"
                   disabled={!canStart}
-                  className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-[var(--accent-lime)] px-9 py-5 font-bold text-[#123220] shadow-[0_10px_28px_-14px_rgba(163,255,18,0.75)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#94ec11] hover:shadow-[0_18px_34px_-16px_rgba(163,255,18,0.95)] active:translate-y-0 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-65"
+                  className="group flex w-full items-center justify-center gap-3 rounded-xl bg-[var(--accent-lime)] px-8 py-5 font-bold text-[#123220] shadow-[0_10px_28px_-14px_rgba(163,255,18,0.75)] transition-all hover:bg-[#94ec11] hover:shadow-[0_14px_30px_-14px_rgba(163,255,18,0.9)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-65"
                 >
                   {isLoading ? (
                     <>
@@ -221,11 +218,6 @@ export default function SetupPage() {
                     </>
                   )}
                 </button>
-                {isLoading ? (
-                  <p className="mt-3 text-center text-xs font-medium text-[var(--outline)]">
-                    Loading interview setup...
-                  </p>
-                ) : null}
               </div>
             </form>
           </section>
