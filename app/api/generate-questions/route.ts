@@ -66,6 +66,20 @@ function generateQuestions(role: string, company?: string): Question[] {
       "How do you handle incident response?",
       "Tell me about automating deployment pipelines.",
     ],
+    "HR Manager": [
+      "How do you handle conflict between employees?",
+      "Describe your experience with performance review cycles.",
+      "How do you design and improve onboarding processes?",
+      "What strategies do you use for talent retention?",
+      "Tell me about implementing a compensation or benefits change.",
+    ],
+    "Recruiter": [
+      "How do you source passive candidates effectively?",
+      "Describe your process for screening and shortlisting resumes.",
+      "How do you ensure a great candidate experience during hiring?",
+      "What metrics do you track to measure hiring success?",
+      "Tell me about a challenging placement you managed.",
+    ],
   };
 
   // Get role-specific questions or use generic ones
@@ -83,11 +97,13 @@ function generateQuestions(role: string, company?: string): Question[] {
     if (company && index === 1) {
       questionText = `What interests you about working at ${company} as a ${role}?`;
     }
-    
+    const isHR = role.toLowerCase().includes("hr");
+    const category = index === 0 ? "introduction" : index === baseQuestions.length - 1 ? "closing" : isHR ? "hr" : "technical";
+
     return {
       id: `q-${Date.now()}-${index}`,
       text: questionText,
-      category: index === 0 ? "introduction" : index === baseQuestions.length - 1 ? "closing" : "technical",
+      category,
     };
   });
 
