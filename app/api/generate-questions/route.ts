@@ -101,7 +101,7 @@ function generateQuestions(role: string, company?: string): Question[] {
     const category = index === 0 ? "introduction" : index === baseQuestions.length - 1 ? "closing" : isHR ? "hr" : "technical";
 
     return {
-      id: `q-${Date.now()}-${index}`,
+      id: `q-${Date.now()}-${index}-${Math.random().toString(36).slice(2,8)}`,
       text: questionText,
       category,
     };
