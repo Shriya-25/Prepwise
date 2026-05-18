@@ -47,3 +47,7 @@ npm run dev
 - `npm run build` - create production build
 - `npm run start` - run production server
 - `npm run lint` - run lint checks
+
+## HR Interview Support
+
+- The app now includes HR-focused interview practice (HR Manager, Recruiter, HR Generalist) with role-specific questions and a protected HR start page. Use the `HR` link in the navbar to begin an HR session.
